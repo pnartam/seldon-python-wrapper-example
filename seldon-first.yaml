@@ -1,0 +1,28 @@
+# this is not working
+
+apiVersion: machinelearning.seldon.io/v1alpha2
+kind: SeldonDeployment
+metadata:
+  name: seldon-first
+spec:
+  name: seldon-first-deployment
+  predictors:
+    - componentSpecs:
+        - spec:
+            containers:
+              - name: classifier
+      graph:
+        children: []
+        endpoint:
+          type: REST
+        implementation: SKLEARN_SERVER
+        modelUri: s3://seldon-syn
+        envSecretRefName: seldon-init-container-secret
+        name: classifier
+        type: MODEL
+        parameters:
+          - name: method
+            type: STRING
+            value: predict
+      name: default
+      replicas: 1

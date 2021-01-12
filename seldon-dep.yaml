@@ -1,0 +1,19 @@
+apiVersion: machinelearning.seldon.io/v1alpha2
+kind: SeldonDeployment
+metadata:
+  name: seldon-app
+spec:
+  name: seldon-app
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - name: app
+          image: pranjalnartam/seldon-app
+    graph:
+      name: app
+      endpoint:
+        type: REST
+      type: MODEL
+    name: default
+    replicas: 1
